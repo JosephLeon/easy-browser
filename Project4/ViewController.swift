@@ -22,6 +22,11 @@ class ViewController: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        let url = NSURL(string: "http://www.slashdot.org")!
+        webView.loadRequest(NSURLRequest(URL: url))
+        webView.allowsBackForwardNavigationGestures = true
+        
     }
 
     override func didReceiveMemoryWarning() {
