@@ -28,6 +28,11 @@ class ViewController: UIViewController, WKNavigationDelegate {
         webView.allowsBackForwardNavigationGestures = true
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .Plain, target: self, action: "openTapped")
+        
+        let spacer = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+        let refresh = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshTapped")
+        toolbarItems = [spacer, refresh]
+        navigationController?.toolbarHidden = false
 
         
     }
@@ -43,6 +48,14 @@ class ViewController: UIViewController, WKNavigationDelegate {
     func openPage(action: UIAlertAction!) {
         let url = NSURL(string: "http://" + action.title)!
         webView.loadRequest(NSURLRequest(URL: url))
+    }
+    
+    func refreshTapped() {
+        webView.reload()
+    }
+    
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+        title = webView.title
     }
 
     override func didReceiveMemoryWarning() {
