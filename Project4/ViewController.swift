@@ -30,6 +30,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .Plain, target: self, action: "openTapped")
         
+        webView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
         
         progressView = UIProgressView(progressViewStyle: .Default)
         progressView.sizeToFit()
@@ -41,6 +42,12 @@ class ViewController: UIViewController, WKNavigationDelegate {
         navigationController?.toolbarHidden = false
 
         
+    }
+    
+    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+        if keyPath == "estimatedProgress" {
+            progressView.progress = Float(webView.estimatedProgress)
+        }
     }
     
     func openTapped() {
