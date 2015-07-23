@@ -13,6 +13,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
     
     var webView: WKWebView!
     var progressView: UIProgressView!
+    var webSites = ["apple.com", "slashdot.org", "reddit.com/r/hearthstone"]
     
     override func loadView() {
         webView = WKWebView()
@@ -24,7 +25,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let url = NSURL(string: "http://www.slashdot.org")!
+        let url = NSURL(string: "http://" + webSites[0])!
         webView.loadRequest(NSURLRequest(URL: url))
         webView.allowsBackForwardNavigationGestures = true
         
@@ -52,8 +53,10 @@ class ViewController: UIViewController, WKNavigationDelegate {
     
     func openTapped() {
         let ac = UIAlertController(title: "Open page…", message: nil, preferredStyle: .ActionSheet)
-        ac.addAction(UIAlertAction(title: "apple.com", style: .Default, handler: openPage))
-        ac.addAction(UIAlertAction(title: "slashdot.org", style: .Default, handler: openPage))
+        
+        for website in webSites {
+            ac.addAction(UIAlertAction(title: website, style: .Default, handler: openPage))
+        }
         ac.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
         presentViewController(ac, animated: true, completion: nil)
     }
