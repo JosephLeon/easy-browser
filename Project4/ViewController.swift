@@ -25,7 +25,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let url = NSURL(string: "http://" + webSites[0])!
+        let url = NSURL(string: "http://" + webSites[2])!
         webView.loadRequest(NSURLRequest(URL: url))
         webView.allowsBackForwardNavigationGestures = true
         
@@ -53,7 +53,6 @@ class ViewController: UIViewController, WKNavigationDelegate {
     
     func openTapped() {
         let ac = UIAlertController(title: "Open page…", message: nil, preferredStyle: .ActionSheet)
-        
         for website in webSites {
             ac.addAction(UIAlertAction(title: website, style: .Default, handler: openPage))
         }
