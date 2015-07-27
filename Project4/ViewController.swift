@@ -72,6 +72,21 @@ class ViewController: UIViewController, WKNavigationDelegate {
     func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
         title = webView.title
     }
+    
+    func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
+        let url = navigationAction.request.URL
+        
+        if let host = url?.host {
+            for website in webSites {
+                if host.rangeOfString(website) != nil {
+                    decisionHandler(.Allow)
+                    return
+                }
+            }
+        }
+        
+        decisionHandler(.Cancel)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
